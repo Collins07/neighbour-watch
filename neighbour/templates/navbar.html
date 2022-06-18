@@ -23,6 +23,7 @@
     <!-- search form end -->
 
     <div id="accounts" class="col-sm-4 col-md-4">
+      {% if user.is_authenticated %}
 
       <ul>
         <li class="dropdown">
@@ -40,7 +41,7 @@
               <a href=""> Edit profile</a>
             </li>
             <li>
-              <a href="">Logout</a>
+              <a href="/logout">Logout</a>
             </li>
           </ul>
         </li>
@@ -49,11 +50,12 @@
         <div class="instaicon disc"></div>
         <div class="instaicon like"></div>
     </span>
-
+        
+    {% else %}
       <li>
-        <a class='btn btn-default' href="">Login</a>
+        <a class='btn btn-default' href="/accounts/login">Login</a>
       </li>
-
+    {% endif %} 
 
     </div>
   </div>
