@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from .models import Business, Neighbourhood,UserProfile,Post
-from .forms import BusinessForm
+from .forms import BusinessForm,PostForm
 
 
 
@@ -29,16 +29,30 @@ def neighborhood(request, id):
         form = BusinessForm(request.POST)
         if form.is_valid():
              b_form = form.save(commit=False)
-             #b_form.neighbourhood = hood
+             b_form.neighbourhood = neighborhood
              b_form.user = current_user
              b_form.save()
              form = BusinessForm()
     else:
          form = BusinessForm()
+
+
+    if request.method == 'POST':
+        postForm = PostForm(request.POST)
+        if postForm.is_valid():
+            p_form = form.save(commit=False)
+            p_form.neighbourhood = neighborhood
+            p_form.user = current_user
+            p_form.save()
+            postForm = PostForm()
+    else:
+        postForm = PostForm()     
+
+
     # # params = {
     #     'posts': posts
     # }
-    return render(request, 'neighborhood.html', {'neighborhood': neighborhood, 'form': form, 'business': business})
+    return render(request, 'neighborhood.html', {'neighborhood': neighborhood, 'form': form, 'business': business, 'postForm':postForm})
 
 
 

@@ -62,10 +62,9 @@ class Business(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField(max_length=100)
     description = models.TextField(blank=True)
-    neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE, related_name='business')
-    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='owner')
+    neighbourhood = models.ForeignKey(Neighbourhood, null=True, on_delete=models.CASCADE, related_name='business')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='owner')
     date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
-    price = models.IntegerField(null=True)
 
 
     class Meta:
@@ -91,6 +90,13 @@ class Post(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='post_owner')
     neighborhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE, related_name='neighborhood_post')
+
+
+    class Meta:
+       ordering = ['-date']
+
+    def __str__(self):
+        return self.title
 
 
 
