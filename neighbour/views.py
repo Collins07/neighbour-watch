@@ -36,8 +36,21 @@ def neighborhood(request, id):
     else:
          form = BusinessForm()
     # # params = {
-    #     ,
-    #     'business': business,
     #     'posts': posts
     # }
-    return render(request, 'neighborhood.html', {'neighborhood': neighborhood, 'form': form})
+    return render(request, 'neighborhood.html', {'neighborhood': neighborhood, 'form': form, 'business': business})
+
+
+
+@login_required(login_url='/accounts/login/')
+def search_business(request):
+    if request.method == 'GET':
+        name = request.GET.get("title")
+        results = Business.objects.filter(name__icontains=name).all()
+        print(results)
+        message = f'name'
+
+        return render(request, 'results.html', {'results':results, 'message': message})
+    else:
+        message = "You haven't searched for any image category"
+    return render(request, 'results.html', {'message': message})
