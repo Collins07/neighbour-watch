@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Business, Neighbourhood,UserProfile,Post
-from .forms import BusinessForm,PostForm,UserProfileForm,UserForm
+from .forms import BusinessForm,PostForm,UserProfileForm,UserForm,NeighbourhoodForm
 from django.contrib.auth.models import User
 
 
@@ -12,8 +12,18 @@ from django.contrib.auth.models import User
 @login_required (login_url='/accounts/login/')
 def index(request):
     neighborhoods = Neighbourhood.objects.all()
+    current_user = request.user
+    if request.method == 'POST':
+        form = NeighbourhoodForm(request.POST, request.FILES)
+        if form.is_valid():
+            h_form = form.save(commit=False)
+            h_form.user = current_user
+            h_form.save()
+            return redirect('homePage')
+    else:
+        form = NeighbourhoodForm()
 
-    return render(request, 'index.html', {'neighborhoods':neighborhoods})
+    return render(request, 'index.html', {'neighborhoods':neighborhoods, 'form':form})
 
 
 

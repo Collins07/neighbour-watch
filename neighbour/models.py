@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 class Neighbourhood(models.Model):
     name = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
-    admin = models.ForeignKey(User, on_delete=models.CASCADE, related_name='neighborhood')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='neighborhood')
     logo = CloudinaryField('image',null=True, blank=True)
     health_number = models.IntegerField(null=True)
     police_number = models.IntegerField(null=True)
