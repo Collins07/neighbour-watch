@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    {% if results %}
+        <p class="lead">Found {{results.count}} businesses</p>
+
+        {% for business in results %}
+        <div class="col-md-12">
+            <h2>{{business.name}}</h2>
+        </div>
+        {% endfor %}
+        {% else %}
+            <p class="lead">Found 0 projects with the name you searched </p>
+    {% endif %}
+{% endblock %} 
