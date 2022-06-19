@@ -1,7 +1,8 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from .models import Business, Neighbourhood,UserProfile,Post
-from .forms import BusinessForm,PostForm
+from .forms import BusinessForm,PostForm,UserProfileForm,UserForm
+from django.contrib.auth.models import User
 
 
 
@@ -94,3 +95,20 @@ def post(request, id):
 def profile(request, username):
 
     return render(request, 'profile.html')
+
+
+@login_required(login_url='/accounts/login/')
+def edit_profile(request, username):
+    user = User.objects.get(username=username)
+    if request.method == 'POST':
+        user_form = UserForm(request.POST, instance=request.user)
+        prof_form = UserProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        if user_form.is_valid() and prof_form.is_valid():
+            user_form.save()
+            prof_form.save()
+            return redirect('profile', user.username)
+    else:
+        user_form = UserForm(instance=request.user)
+        prof_form = UserProfileForm(instance=request.user.profile)
+
+    return render(request, 'update_profile.html', {'user_form': user_form, 'prof_form': prof_form})    
