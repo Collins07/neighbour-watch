@@ -5,7 +5,7 @@ from django.dispatch import receiver
 from django.contrib.auth.models import User
 
 # Create your models here.
-class NeighbourHood(models.Model):
+class Neighbourhood(models.Model):
     name = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
     admin = models.ForeignKey(User, on_delete=models.CASCADE, related_name='neighborhood')
@@ -42,7 +42,7 @@ class UserProfile(models.Model):
     name = models.CharField(max_length=100, blank=True)
     bio = models.TextField(max_length=500, blank=True)
     profile_picture = CloudinaryField('image',null=True, default='default.png')
-    neighbourhood = models.ForeignKey(NeighbourHood, on_delete=models.SET_NULL, null=True, related_name='ocupants', blank=True)
+    neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.SET_NULL, null=True, related_name='ocupants', blank=True)
     email = models.EmailField(max_length=100)
 
     def __str__(self):
@@ -62,7 +62,7 @@ class Business(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField(max_length=100)
     description = models.TextField(blank=True)
-    neighbourhood = models.ForeignKey(NeighbourHood, on_delete=models.CASCADE, related_name='business')
+    neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE, related_name='business')
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='owner')
     date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
@@ -85,7 +85,7 @@ class Post(models.Model):
     post = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='post_owner')
-    neighborhood = models.ForeignKey(NeighbourHood, on_delete=models.CASCADE, related_name='neighborhood_post')
+    neighborhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE, related_name='neighborhood_post')
 
 
 
