@@ -6,10 +6,10 @@
 {% block content %}
 <div class="container">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-12 col-lg-4">
             {% cloudinary neighborhood.logo format="jpg" width=300 height=200 crop="" %}
         </div>
-        <div class="col-md-8">
+        <div class="col-md-12 col-lg-8">
             <h2 class="hood-name text-center">{{neighborhood.name}}</h2>
             <h4 class="highlight">{{neighborhood.location}}</h4>
             <p>Police Station Telephone Number: <span class="highlight">{{neighborhood.police_number}}</span></p>
@@ -75,7 +75,7 @@
     
         <div class="row">
             {% for business in business %}
-            <div class="col-sm-6 col-lg-5 hoods">
+            <div class="col-sm-12 col-md-12 col-lg-5 hoods">
                 <h2 class="text-center highlight">{{business.name}}</h2>
                 <p class="text-center">{{business.email}}</p>
                 <p>{{business.description}}</p>
@@ -84,10 +84,10 @@
         </div>
 
         <div class="row">
-            <div class="col-md-6 post-form">
+            <div class="col-sm-12 col-md-6 col-lg-6 ">
                 <h2 class="text-center">Posts</h2>
             </div>
-            <div class="col-md-6">
+            <div class="col-sm-12 col-md-6 col-lg-6 post-form">
                 <a href="{% url 'post' neighborhood.id %}" class="btn btn-outline-primary">New Post</a>
             </div>
         </div>
