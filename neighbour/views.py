@@ -1,10 +1,13 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from .models import Business, NeighbourHood,UserProfile,Post
+
 
 
 # Create your views here.
 
 @login_required (login_url='/accounts/login/')
 def index(request):
+    neighborhoods = NeighbourHood.objects.all()
 
-    return render(request, 'index.html')
+    return render(request, 'index.html', {'neighborhoods':neighborhoods})
