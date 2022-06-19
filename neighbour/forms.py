@@ -5,5 +5,5 @@ from django.contrib.auth.models import User
 
 class BusinessForm(forms.ModelForm):
     class Meta:
-        model: Business
+        model = Business
         fields = ['name', 'email','description', 'price'] 

@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from .models import Business, Neighbourhood,UserProfile,Post
+from .forms import BusinessForm
+
 
 
 
@@ -19,23 +21,23 @@ def index(request):
 @login_required (login_url='/accounts/login/')
 def neighborhood(request, id):
     neighborhood = Neighbourhood.objects.get(id=id)
-    #business = Business.objects.filter(neighbourhood=neighborhood)
-    #posts = Post.objects.filter(hood=neighborhood)
-    #posts = posts[::-1]
-    # if request.method == 'POST':
-    #     form = BusinessForm(request.POST)
-    #     if form.is_valid():
-    #         b_form = form.save(commit=False)
-    #         b_form.neighbourhood = hood
-    #         b_form.user = request.user.profile
-    #         b_form.save()
-    #         return redirect('single-hood', hood.id)
-    # else:
-    #     form = BusinessForm()
+    current_user = request.user
+    business = Business.objects.filter(neighbourhood=neighborhood)
+    posts = Post.objects.filter(hood=neighborhood)
+    posts = posts[::-1]
+    if request.method == 'POST':
+        form = BusinessForm(request.POST)
+        if form.is_valid():
+             b_form = form.save(commit=False)
+             #b_form.neighbourhood = hood
+             b_form.user = current_user
+             b_form.save()
+             form = BusinessForm()
+    else:
+         form = BusinessForm()
     # # params = {
     #     ,
     #     'business': business,
-    #     'form': form,
     #     'posts': posts
     # }
-    return render(request, 'neighborhood.html', {'neighborhood': neighborhood})
+    return render(request, 'neighborhood.html', {'neighborhood': neighborhood, 'form': form})
