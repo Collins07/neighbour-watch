@@ -88,3 +88,9 @@ def post(request, id):
         form = PostForm()
 
     return render(request, 'post.html', {'form': form})    
+
+
+@login_required(login_url='/accounts/login/')
+def profile(request, username):
+
+    return render(request, 'profile.html')
