@@ -44,6 +44,7 @@ class UserProfile(models.Model):
     profile_picture = CloudinaryField('image',null=True, default='default.png')
     neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.SET_NULL, null=True, related_name='ocupants', blank=True)
     email = models.EmailField(max_length=100)
+    location = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
         return f'{self.user.username} profile'
