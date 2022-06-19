@@ -15,13 +15,14 @@
             <p>Police Station Telephone Number: <span class="highlight">{{neighborhood.police_number}}</span></p>
             <p>Health Department Telephone Number: <span class="highlight">{{neighborhood.health_number}}</span></p>
             <p>Neighborhood Manager: <span class="highlight">{{neighborhood.admin.username}}</span></p>
+            <p>Occupants: {{neighborhood.ocupants.count}}</p>
 
 
             {% if request.user.profile.neighbourhood == neighborhood %} 
                 <a href="{% url 'leave' neighborhood.id %}" class="btn btn-danger">Leave {{neighborhood.name}} neighborhood</a>
             {% endif %}
 
-            
+
         </div>
     </div>
     <hr>

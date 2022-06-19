@@ -127,3 +127,9 @@ def leave_neighborhood(request, id):
     request.user.profile.neighbourhood = None
     request.user.profile.save()
     return redirect('homePage')
+
+
+def occupants(request, id):
+    neighborhood = Neighbourhood.objects.get(id=id)
+    occupants = UserProfile.objects.filter(neighbourhood=neighborhood)
+    return render(request, 'occupants.html', {'occupants': occupants})    
