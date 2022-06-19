@@ -11,7 +11,15 @@
         <div class="col-md-12">
             <h2>{{business.name}}</h2>
         </div>
+        <div class="row">
+            {% for business in results %}
+            <div class="col-sm-6 col-lg-12 hoods">
+                <h2 class="text-center highlight">{{business.name}}</h2>
+                <p class="text-center">{{business.email}}</p>
+                <p>{{business.description}}</p>
+            </div>
         {% endfor %}
+        </div>
         {% else %}
             <p class="lead">Found 0 projects with the name you searched </p>
     {% endif %}

@@ -10,17 +10,18 @@
             {% cloudinary neighborhood.logo format="jpg" width=300 height=200 crop="" %}
         </div>
         <div class="col-md-8">
-            <h2>{{neighborhood.name}}</h2>
-            <h4>{{neighborhood.location}}</h4>
-            <p>Police Station Telephone Number:{{neighborhood.police_number}} | Health Departrment Telephone Number:{{neighborhood.health_number}}</p>
-            <p>Owner: {{neighborhood.admin.username}}</p>
+            <h2 class="hood-name text-center">{{neighborhood.name}}</h2>
+            <h4 class="highlight">{{neighborhood.location}}</h4>
+            <p>Police Station Telephone Number: <span class="highlight">{{neighborhood.police_number}}</span></p>
+            <p>Health Department Telephone Number: <span class="highlight">{{neighborhood.health_number}}</span></p>
+            <p>Neighborhood Manager: <span class="highlight">{{neighborhood.admin.username}}</span></p>
         </div>
     </div>
     <hr>
      
     <h2 class="text-center">Businesses</h2>
     <a href="" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-xl">Add a Business</a>
-    <div class="row">
+    <div class="row business">
         <div class="col-md-4">
             <a href="" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-xl">Add a Business</a>
         </div>
@@ -66,8 +67,8 @@
     
         <div class="row">
             {% for business in business %}
-            <div class="col-sm-6 col-md-4">
-                <h2 class="text-center">{{business.name}}</h2>
+            <div class="col-sm-6 col-lg-5 hoods">
+                <h2 class="text-center highlight">{{business.name}}</h2>
                 <p class="text-center">{{business.email}}</p>
                 <p>{{business.description}}</p>
             </div>
@@ -75,7 +76,7 @@
         </div>
 
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6 post-form">
                 <h2 class="text-center">Posts</h2>
             </div>
             <div class="col-md-6">
@@ -85,8 +86,8 @@
 
         <div class="row">
             {% for post in posts %}
-            <div class="col-sm-6 col-md-8">
-                <h2 class="text-center">{{post.title}}</h2>
+            <div class="col-sm-6 col-lg-12 hoods">
+                <h2 class="text-center highlight">{{post.title}}</h2>
                 <p>{{post.post}}</p>
                 <p>Posted on {{post.date}}</p> 
             </div>

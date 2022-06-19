@@ -4,15 +4,19 @@
 {% load cloudinary %}
 
 {% block content %}
+ <div class="container">
       <h1 class="text-center">Neighbour Watch</h1>
+      <p class="lead text-center">Join a neighborhood in your location to be on the loop about your surroundings.</p>
+      <hr>
+  </div> 
       <div class="container">
             <div class="row">
                   {% for neighborhood in neighborhoods %}
-                  <div class="col-sm-6 col-md-4">
+                  <div class="col-sm-6 col-md-4 col-lg-5 hoods card mb-4">
                       <h2 class="text-center">{{neighborhood.name}}</h2>
-                      <p class="text-center">{{neighborhood.location}}</p>
+                      <p class="text-center">Location: <span class="highlight">{{neighborhood.location}}</span></p>
                       {% cloudinary neighborhood.logo format="jpg" width=300 height=200 crop="" %}
-                      <a href="{% url 'neighborhood' neighborhood.id %}" class="btn btn-info">Join Neighborhood</a>
+                      <a href="{% url 'neighborhood' neighborhood.id %}" class="btn btn-outline-info">Join Neighborhood</a>
                   </div>
                   {% endfor %}
               </div>      
