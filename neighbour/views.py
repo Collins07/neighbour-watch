@@ -23,8 +23,9 @@ def neighborhood(request, id):
     neighborhood = Neighbourhood.objects.get(id=id)
     current_user = request.user
     business = Business.objects.filter(neighbourhood=neighborhood)
-    posts = Post.objects.filter(hood=neighborhood)
-    posts = posts[::-1]
+    #posts = Post.objects.filter(hood=neighborhood)
+    #posts = posts[::-1]
+    posts = Post.objects.filter(neighborhood=neighborhood)
     if request.method == 'POST':
         form = BusinessForm(request.POST)
         if form.is_valid():
@@ -37,22 +38,22 @@ def neighborhood(request, id):
          form = BusinessForm()
 
 
-    if request.method == 'POST':
-        postForm = PostForm(request.POST)
-        if postForm.is_valid():
-            p_form = form.save(commit=False)
-            p_form.neighbourhood = neighborhood
-            p_form.user = current_user
-            p_form.save()
-            postForm = PostForm()
-    else:
-        postForm = PostForm()     
+    # if request.method == 'POST':
+    #     postForm = PostForm(request.POST)
+    #     if postForm.is_valid():
+    #         p_form = form.save(commit=False)
+    #         p_form.neighbourhood = neighborhood
+    #         p_form.user = current_user
+    #         p_form.save()
+    #         postForm = PostForm()
+    # else:
+    #     postForm = PostForm()     
 
 
     # # params = {
     #     'posts': posts
     # }
-    return render(request, 'neighborhood.html', {'neighborhood': neighborhood, 'form': form, 'business': business, 'postForm':postForm})
+    return render(request, 'neighborhood.html', {'neighborhood': neighborhood, 'form': form, 'business': business, 'postForm':form, 'posts': posts})
 
 
 
@@ -68,3 +69,22 @@ def search_business(request):
     else:
         message = "You haven't searched for any image category"
     return render(request, 'results.html', {'message': message})
+
+
+
+@login_required(login_url='/accounts/login/')
+def post(request, id):
+    neighborhood = Neighbourhood.objects.get(id=id)
+    current_user = request.user
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            p_form = form.save(commit=False)
+            p_form.neighborhood = neighborhood
+            p_form.user = current_user
+            p_form.save()
+            return redirect('neighborhood', neighborhood.id)
+    else:
+        form = PostForm()
+
+    return render(request, 'post.html', {'form': form})    

@@ -88,8 +88,8 @@ class Post(models.Model):
     title = models.CharField(max_length=100, null=True)
     post = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='post_owner')
-    neighborhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE, related_name='neighborhood_post')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='post_owner')
+    neighborhood = models.ForeignKey(Neighbourhood, null=True,  on_delete=models.CASCADE, related_name='neighborhood_post')
 
 
     class Meta:
