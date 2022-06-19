@@ -65,6 +65,11 @@ class Business(models.Model):
     neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE, related_name='business')
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='owner')
     date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    price = models.IntegerField(null=True)
+
+
+    class Meta:
+       ordering = ['-date']
 
     def __str__(self):
         return f'{self.name} Business'
