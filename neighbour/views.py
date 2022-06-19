@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Business, Neighbourhood,UserProfile,Post
 from .forms import BusinessForm,PostForm,UserProfileForm,UserForm
@@ -112,3 +112,18 @@ def edit_profile(request, username):
         prof_form = UserProfileForm(instance=request.user.profile)
 
     return render(request, 'update_profile.html', {'user_form': user_form, 'prof_form': prof_form})    
+
+
+@login_required(login_url='/accounts/login/')
+def enter_neighborhood(request, id):
+    neighborhood = get_object_or_404(Neighbourhood, id=id)
+    request.user.profile.neighbourhood = neighborhood
+    request.user.profile.save()
+    return redirect('neighborhood', neighborhood.id)
+
+
+def leave_neighborhood(request, id):
+    neighbourhood = get_object_or_404(Neighbourhood, id=id)
+    request.user.profile.neighbourhood = None
+    request.user.profile.save()
+    return redirect('homePage')

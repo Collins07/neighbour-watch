@@ -13,6 +13,7 @@
                 <p> {{user.email}}</p>
                 <p class="text-secondary">{{ user.profile.bio }}</p>
                 <p>Location: {{user.profile.location}}</p>
+                <a href="{% url 'update' user.username  %}" class="btn btn-warning btn-sm">Update profile</a>
             </div>
             <div class="col-md-5"></div>
         </div><hr>
