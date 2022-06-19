@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% load static %}
+{% load cloudinary %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            {% cloudinary neighborhood.logo format="jpg" width=300 height=200 crop="" %}
+        </div>
+        <div class="col-md-8">
+            <h2>{{neighborhood.name}}</h2>
+            <h4>{{neighborhood.location}}</h4>
+            <p>Police Station Telephone Number:{{neighborhood.police_number}} | Health Departrment Telephone Number:{{neighborhood.health_number}}</p>
+            <p>Owner: {{neighborhood.admin.username}}</p>
+        </div>
+    </div>
+    <hr>
+
+    <a href="" class="btn btn-primary">Add a Business</a>
+
+</div>
+{% endblock %} 

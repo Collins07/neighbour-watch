@@ -1,13 +1,21 @@
 {% extends 'base.html' %}
 {% load bootstrap4 %}
 {% load static %}
+{% load cloudinary %}
 
 {% block content %}
       <h1 class="text-center">Neighbour Watch</h1>
       <div class="container">
-            {% for neighborhood in neighborhoods %}
-                <h2>{{neighborhood.name}}</h2>
-            {% endfor %}
+            <div class="row">
+                  {% for neighborhood in neighborhoods %}
+                  <div class="col-sm-6 col-md-4">
+                      <h2 class="text-center">{{neighborhood.name}}</h2>
+                      <p class="text-center">{{neighborhood.location}}</p>
+                      {% cloudinary neighborhood.logo format="jpg" width=300 height=200 crop="" %}
+                      <a href="{% url 'neighborhood' neighborhood.id %}" class="btn btn-info">Join Neighborhood</a>
+                  </div>
+                  {% endfor %}
+              </div>      
       </div>
 
 {% endblock %}
