@@ -16,7 +16,15 @@
                       <h2 class="text-center">{{neighborhood.name}}</h2>
                       <p class="text-center">Location: <span class="highlight">{{neighborhood.location}}</span></p>
                       {% cloudinary neighborhood.logo format="jpg" width=300 height=200 crop="" %}
-                      <a href="{% url 'neighborhood' neighborhood.id %}" class="btn btn-outline-info">Join Neighborhood</a>
+
+
+            {% if request.user.profile.neighbourhood == neighborhood %}
+                <a href="{% url 'neighborhood' neighborhood.id %}" class="btn btn-outline-info">View {{neighborhood.name}} neighborhood details</a><br>
+                <a href="{% url 'leave' neighborhood.id %}" class="btn btn-danger">Leave</a>
+                {% elif not request.user.profile.neighbourhood %}
+                <a href="{% url 'enter' neighborhood.id %}" class="btn btn-primary">Join</a>
+            {% endif %}
+            
                   </div>
                   {% endfor %}
               </div>      
