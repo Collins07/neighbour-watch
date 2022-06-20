@@ -9,12 +9,10 @@
       <p class="lead text-center">Join a neighborhood in your location to be on the loop about your surroundings.</p>
       <hr>
 
-      <a href="" class="btn btn-primary" data-toggle="modal" data-target=".new-hood">Create your own neighborhood</a><br><br>
+      <a href="" id="" class="btn btn-success createnew" data-toggle="modal" data-target=".new-hood">Create your own neighborhood</a><br><br>
     </div>
     
-    <div class="modal fade new-hood" id="ModalCenter" tabindex="-1" role="dialog"
-    aria-labelledby="exampleModalCenterTitle"
-    aria-hidden="true">
+    <div class="modal fade new-hood" id="ModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
        <div class="modal-content modalcard">
            <div class="modal-header">
@@ -42,7 +40,7 @@
                   <div class="col-sm-12 col-md-12 col-lg-5 hoods card mb-4">
                       <h2 class="text-center">{{neighborhood.name}}</h2>
                       <p class="text-center">Location: <span class="highlight">{{neighborhood.location}}</span></p>
-                      {% cloudinary neighborhood.logo format="jpg" width=300 height=200 crop="" %}
+                      {% cloudinary neighborhood.logo format="jpg" width=450 height=300 crop="" %}
 
 
             {% if request.user.profile.neighbourhood == neighborhood %}
